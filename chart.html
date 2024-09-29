@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chart and Candle Stick Patterns</title>
+    <style>
+        /* Reset some basic styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body Styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #24302e;
+            color: white;
+        }
+
+        /* Main Container */
+        .main-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            gap: 50px;
+            flex-wrap: wrap;
+            padding: 20px;
+        }
+
+        /* Box Styles */
+        .box {
+            width: 300px;
+            height: 200px;
+            background-color: #03fcca;
+            color: #24302e;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            text-align: center;
+            border-radius: 15px;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+            font-size: 24px;
+            font-weight: bold;
+            position: relative;
+        }
+
+        .box:hover {
+            transform: scale(1.05);
+            background-color: #02c8b5;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow-y: auto;
+            background-color: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .modal-content {
+            background-color: #fff;
+            color: #24302e;
+            padding: 20px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 1200px;
+            position: relative;
+            margin-top: 1200px;
+            margin-bottom: 120px
+        }
+
+        .modal-content h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 36px;
+        }
+
+        /* Close Button */
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 25px;
+            color: #aaa;
+            font-size: 35px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #000;
+        }
+
+        /* Charts Container */
+        .charts-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        /* Chart Item Styles */
+        .chart-item {
+            width: 300px;
+            text-align: center;
+        }
+
+        .chart-item h2 {
+            margin-bottom: 10px;
+            color: #24302e;
+            font-size: 20px;
+        }
+
+        /* Chart Box Styles */
+        .chart-box {
+            width: 100%;
+            height: 200px;
+            border-radius: 15px;
+            border: 5px solid #03fcca;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .chart-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Ensures the image covers the container without distortion */
+            transition: transform 0.3s ease;
+        }
+
+        .chart-box img:hover {
+            transform: scale(1.05);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .main-container {
+                flex-direction: column;
+                gap: 30px;
+            }
+
+            .box {
+                width: 80%;
+                height: 150px;
+                font-size: 20px;
+            }
+
+            .modal-content {
+                width: 95%;
+            }
+
+            .chart-item {
+                width: 90%;
+            }
+
+            .chart-box {
+                height: 200px;
+            }
+        }
+         /* Responsive Design */
+        @media (max-width: 768px) {
+            .main-container {
+                flex-direction: column;
+                gap: 30px;
+            }
+
+            .box {
+                width: 80%;
+                height: 150px;
+                font-size: 20px;
+            }
+
+            .modal-content {
+                width: 95%;
+                height: auto; /* Ensure height auto for mobile */
+                max-height: 90%; /* Limit height */
+                overflow-y: auto; /* Enable scrolling if content overflows */
+            }
+
+            .chart-item {
+                width: 90%;
+            }
+
+            .chart-box {
+                height: 150px; /* Adjust height for mobile */
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Main Container -->
+    <div class="main-container">
+        <!-- Chart Pattern Box -->
+        <div class="box" id="chartPatternBox" onclick="openModal('chartModal')">
+            <p>Chart Patterns</p>
+        </div>
+
+        <!-- Candle Stick Pattern Box -->
+        <div class="box" id="candleStickBox" onclick="openModal('candleModal')">
+            <p>Candle Stick Patterns</p>
+        </div>
+    </div>
+
+    <!-- Chart Patterns Modal -->
+    <div id="chartModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('chartModal')">&times;</span>
+            <h1>Chart Patterns</h1>
+            <div class="charts-container">
+                <!-- Chart Pattern 1 -->
+                <div class="chart-item">
+                    <h2>Head And Shoulder</h2>
+                    <div class="chart-box">
+                        <img src="1.jpg" alt="Head And Shoulder" loading="lazy">
+                    </div>
+                </div>
+                <!-- Chart Pattern 2 -->
+                <div class="chart-item">
+                    <h2>Inverse Head And Shoulder</h2>
+                    <div class="chart-box">
+                        <img src="2.jpg" alt="Inverse Head And Shoulder" loading="lazy">
+                    </div>
+                </div>
+                <!-- Chart Pattern 3 -->
+                <div class="chart-item">
+                    <h2>Double Top</h2>
+                    <div class="chart-box">
+                        <img src="3.jpg" alt="Double Top" loading="lazy">
+                    </div>
+                </div>
+                <!-- Chart Pattern 4 -->
+                <div class="chart-item">
+                    <h2>Double Bottom</h2>
+                    <div class="chart-box">
+                        <img src="4.jpg" alt="Double Bottom" loading="lazy">
+                    </div>
+                </div>
+                <!-- Chart Pattern 5 -->
+                <div class="chart-item">
+                    <h2>Cup And Handle</h2>
+                    <div class="chart-box">
+                        <img src="5.jpg" alt="Cup And Handle" loading="lazy">
+                    </div>
+                </div>
+               <!-- Chart Pattern 6 -->
+<div class="chart-item">
+    <h2>Rounding Bottom</h2>
+    <div class="chart-box">
+        <img src="6.jpg" alt="Rounding Bottom" loading="lazy">
+    </div>
+</div>
+
+<!-- Chart Pattern 7 -->
+<div class="chart-item">
+    <h2>Triangles</h2>
+    <div class="chart-box">
+        <img src="7.jpg" alt="Triangles" loading="lazy">
+    </div>
+</div>
+
+<!-- Chart Pattern 8 -->
+<div class="chart-item">
+    <h2>Wedge Pattern</h2>
+    <div class="chart-box">
+        <img src="8.jpg" alt="Wedge Pattern" loading="lazy">
+    </div>
+</div>
+
+<!-- Chart Pattern 9 -->
+<div class="chart-item">
+    <h2>Flag Pattern</h2>
+    <div class="chart-box">
+        <img src="9.jpg" alt="Flag Pattern" loading="lazy">
+    </div>
+</div>
+
+<!-- Chart Pattern 10 -->
+<div class="chart-item">
+    <h2>Bearish Engulfing</h2>
+    <div class="chart-box">
+        <img src="10.jpg" alt="Bearish Engulfing" loading="lazy">
+    </div>
+</div>
+
+<!-- Chart Pattern 11 -->
+<div class="chart-item">
+    <h2>Diamond Top</h2>
+    <div class="chart-box">
+        <img src="11.jpg" alt="Diamond Top" loading="lazy">
+    </div>
+</div>
+
+<!-- Chart Pattern 12 -->
+<div class="chart-item">
+    <h2>Bearish Harami</h2>
+    <div class="chart-box">
+        <img src="12.jpg" alt="Bearish Harami" loading="lazy">
+    </div>
+</div>
+
+<!-- Chart Pattern 13 -->
+<div class="chart-item">
+    <h2>Bullish Harami</h2>
+    <div class="chart-box">
+        <img src="13.jpg" alt="Bullish Harami" loading="lazy">
+    </div>
+</div>
+
+<!-- Chart Pattern 14 -->
+<div class="chart-item">
+    <h2>Morning Star</h2>
+    <div class="chart-box">
+        <img src="14.jpg" alt="Morning Star" loading="lazy">
+    </div>
+</div>
+
+<!-- Chart Pattern 15 -->
+<div class="chart-item">
+    <h2>Evening Star</h2>
+    <div class="chart-box">
+        <img src="15.jpg" alt="Evening Star" loading="lazy">
+    </div>
+</div>
+
+<!-- Chart Pattern 16 -->
+<div class="chart-item">
+    <h2>Bullish Engulfing</h2>
+    <div class="chart-box">
+        <img src="16.jpg" alt="Bullish Engulfing" loading="lazy">
+    </div>
+</div>
+
+<!-- Chart Pattern 17 -->
+<div class="chart-item">
+    <h2>Falling Knife</h2>
+    <div class="chart-box">
+        <img src="17.jpg" alt="Falling Knife" loading="lazy">
+    </div>
+</div>
+
+<!-- Chart Pattern 18 -->
+<div class="chart-item">
+    <h2>Triple Bottom</h2>
+    <div class="chart-box">
+        <img src="18.jpg" alt="Triple Bottom" loading="lazy">
+    </div>
+</div>
+
+<!-- Chart Pattern 19 -->
+<div class="chart-item">
+    <h2>Triple Top</h2>
+    <div class="chart-box">
+        <img src="19.jpg" alt="Triple Top" loading="lazy">
+    </div>
+</div>
+                <!-- ... -->
+                <div class="chart-item">
+                    <h2>Rectangle Pattern</h2>
+                    <div class="chart-box">
+                        <img src="20.jpg" alt="Rectangle Pattern" loading="lazy">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Candle Stick Patterns Modal -->
+    <div id="candleModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('candleModal')">&times;</span>
+            <h1>Candle Stick Patterns</h1>
+            <div class="charts-container">
+                <!-- Candle Stick Pattern 1 -->
+                <div class="chart-item">
+                    <h2>Deliberation Pattern</h2>
+                    <div class="chart-box">
+                        <img src="1-2.jpg" alt="Deliberation Pattern" loading="lazy">
+                    </div>
+                </div>
+                <!-- Candle Stick Pattern 2 -->
+                <div class="chart-item">
+                    <h2>Thrushing Bearish Pattern</h2>
+                    <div class="chart-box">
+                        <img src="2-2.jpg" alt="Thrushing Bearish Pattern" loading="lazy">
+                    </div>
+                </div>
+                <!-- Candle Stick Pattern 3 -->
+                <div class="chart-item">
+                    <h2>Crows Pattern</h2>
+                    <div class="chart-box">
+                        <img src="3-2.jpg" alt="Crows Pattern" loading="lazy">
+                    </div>
+                </div>
+                <!-- Candle Stick Pattern 4 -->
+                <div class="chart-item">
+                    <h2>Mat Hold Pattern</h2>
+                    <div class="chart-box">
+                        <img src="4-2.jpg" alt="Mat Hold Pattern" loading="lazy">
+                    </div>
+                </div>
+                <!-- Candle Stick Pattern 5 -->
+                <div class="chart-item">
+                    <h2>ON & In Neck Pattern</h2>
+                    <div class="chart-box">
+                        <img src="5-2.jpg" alt="ON & In Neck Pattern" loading="lazy">
+                    </div>
+                </div>
+                <!-- Candle Stick Pattern 6 -->
+                <div class="chart-item">
+                    <h2>Tweezer Pattern</h2>
+                    <div class="chart-box">
+                        <img src="6-2.jpg" alt="Tweezer Pattern" loading="lazy">
+                    </div>
+                </div>
+                <!-- Candle Stick Pattern 7 -->
+                <div class="chart-item">
+                    <h2>Dark Cloud Cover Pattern</h2>
+                    <div class="chart-box">
+                        <img src="7-2.jpg" alt="Dark Cloud Cover Pattern" loading="lazy">
+                    </div>
+                </div>
+                <!-- Candle Stick Pattern 8 -->
+                <div class="chart-item">
+                    <h2>Piercing Pattern</h2>
+                    <div class="chart-box">
+                        <img src="8-2.jpg" alt="Piercing Pattern" loading="lazy">
+                    </div>
+                </div>
+                <!-- Candle Stick Pattern 9 -->
+                <div class="chart-item">
+                    <h2>Hammer Pattern</h2>
+                    <div class="chart-box">
+                        <img src="9-2.jpg" alt="Hammer Pattern" loading="lazy">
+                    </div>
+                </div>
+                <!-- Candle Stick Pattern 10 -->
+                <div class="chart-item">
+                    <h2>Doji Pattern</h2>
+                    <div class="chart-box">
+                        <img src="10-2.jpg" alt="Doji Pattern" loading="lazy">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Function to open a modal
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = "flex";
+            document.body.style.overflow = "hidden"; // Prevent background scrolling
+        }
+
+        // Function to close a modal
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = "none";
+            document.body.style.overflow = "auto"; // Restore background scrolling
+        }
+
+        // Close modal when clicking outside the modal content
+        window.onclick = function(event) {
+            const modals = document.getElementsByClassName('modal');
+            for (let modal of modals) {
+                if (event.target === modal) {
+                    modal.style.display = "none";
+                    document.body.style.overflow = "auto";
+                }
+            }
+        }
+
+        // Optional: Close modal on pressing the 'Esc' key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                const modals = document.getElementsByClassName('modal');
+                for (let modal of modals) {
+                    modal.style.display = "none";
+                }
+                document.body.style.overflow = "auto";
+            }
+        });
+    </script>
+</body>
+</html>
